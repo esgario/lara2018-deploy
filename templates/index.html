@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ml-Server</title>
+	<style type="text/css">
+		.container{width: 100%;}
+		.block{padding: 0 10%;}
+		h1, h2, h3, h4, h5, p{text-align:center; color: #333;}
+	</style>
+</head>
+<body bgcolor="#eee">
+	<div class="container">
+		<div class="block">
+			<h2>ML-SERVER</h2>
+			<p>Servidor para execução dos modelos de machine learning desenvolvidos usando Flask-Gunicorn-Redis-Pytorch.
+			Toda a comunicação é realizada via API</p>
+			<h4>ENDPOINTS:</h4>
+			<p>/api/inference (Método: POST) - Envia os dados para que o modelo possa realizar a inferência. Retorna um json com o {job_id}.</p>
+			<p>/api/status/{job_id} (Método: GET) - Consulta o progresso do worker.</p>
+			<p>/api/result/{job_id} (Método: GET) - Retornar os resultados da inferência.</p>
+		</div>
+	</div>
+</body>
+</html>
