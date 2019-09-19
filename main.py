@@ -45,14 +45,17 @@ def get_progress(job_id):
 def get_result(job_id):
     """
         Get a json with:
-            - ['result'] individual symptoms severit 
+            - ['status'] image processing status (started or completed)
+            - ['result'] algorithm return text
             - ['filename']
             - ['file'] base64 enconded image
     """
+    job_progress = mlq.get_progress(job_id)
+    
     try:
         job = mlq.get_job(job_id)
         ret = job['result']        
-        response = None
+        response = {'status': job_progress}
         
         if ret is not None:
             # if there is a file in ret so...
@@ -60,16 +63,21 @@ def get_result(job_id):
                 with open(os.path.join(app.config['OUT_IMAGES_PATH'], ret['file']), "rb") as fp:
                     encoded_string = base64.b64encode(fp.read())
                     encoded_string = encoded_string.decode('ascii')
-                    response = {'result': ret['result'], 'filename': ret['file'], 'file': encoded_string }
+                    response = {'status': job_progress,
+                                'result': ret['result'],
+                                'filename': ret['file'],
+                                'file': encoded_string }
                 
             # otherwise
             else:
-                response = {'result': ret['result'], 'filename': ret['file']}
+                response = {'status': job_progress,
+                            'result': ret['result'],
+                            'filename': ret['file']}
         
         return json.dumps(response)
         
     except:
-        return json.dumps(None)
+        return json.dumps({'status': job_progress})
     
 
 

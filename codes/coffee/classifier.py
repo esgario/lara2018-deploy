@@ -96,6 +96,7 @@ class Classifier():
     def readImage(self, img_size=(512, 256), show_img=False):
         # Read Image
         img = m.imread(self.opt.in_image_path)
+        img = img[:,:,:3]
         img = np.array(img, dtype=np.uint8)
     
         orig_img = img.copy()
