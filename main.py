@@ -95,7 +95,7 @@ def do_inference():
         return json.dumps({'error_code': 1, 'msg': 'No file selected for uploading'})
     
     if file and allowed_file(file.filename):
-        file.filename = secure_filename(file.filename)
+#        file.filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['IN_IMAGES_PATH'], file.filename))                
         job_id = mlq.post({'algorithm':request.form['algorithm'], 'file':file.filename})
         return json.dumps({'job_id': job_id})
