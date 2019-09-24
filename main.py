@@ -54,18 +54,18 @@ def get_result(job_id):
     
     try:
         job = mlq.get_job(job_id)
-        ret = job['result']        
+        ret = job['result']
         response = {'status': job_progress}
         
         if ret is not None:
             # if there is a file in ret so...
-            if 'file' in ret:
-                with open(os.path.join(app.config['OUT_IMAGES_PATH'], ret['file']), "rb") as fp:
+            if 'out_file' in ret:
+                with open(os.path.join(app.config['OUT_IMAGES_PATH'], ret['out_file']), "rb") as fp:
                     encoded_string = base64.b64encode(fp.read())
                     encoded_string = encoded_string.decode('ascii')
                     response = {'status': job_progress,
                                 'result': ret['result'],
-                                'filename': ret['file'],
+                                'filename': ret['out_file'],
                                 'file': encoded_string }
                 
             # otherwise

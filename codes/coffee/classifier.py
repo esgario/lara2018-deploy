@@ -277,7 +277,10 @@ class Classifier():
             
             # Printing results
             result += '%d,%s,%d\n' % (i, BIOTIC_STRESS_LABEL[out], confidence_level[0])
-
+        
+        if result == '':
+            result = '---, saudável, ---'
+            
         outputImage = self.createOutputImage(new_labels)
         self.save(outputImage, severity, bbox)
         

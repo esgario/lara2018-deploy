@@ -23,8 +23,9 @@ def image_classification(p_dict, *args):
     
     if p_dict['algorithm'] == 'coffee':
         # exec coffee algorithm
+        p_dict['out_file'] = p_dict['file'].split('.')[0]+'_output.png'
         p_dict['result'] = clf_coffee.run('in_images/'+p_dict['file'],
-                                          'out_images/'+p_dict['file'])
+                                          'out_images/'+p_dict['out_file'])
     
     if p_dict['algorithm'] == 'cancer':
         # exec cancer algorithm
