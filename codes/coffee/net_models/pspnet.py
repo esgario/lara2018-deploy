@@ -22,7 +22,8 @@ def load_weights_sequential(target, source_state):
     Implementation of dilated ResNet-101 with deep supervision. Downsampling is changed to 8x
 '''
 model_urls = {
-    'resnet50': 'http://download.pytorch.org/models/resnet50-19c8e357.pth',
+#    'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet50': '/code/models/resnet50-19c8e357.pth',
 }
 
 
@@ -157,7 +158,11 @@ class ResNet(nn.Module):
 def resnet50(pretrained=True):
     model = ResNet(Bottleneck, [3, 4, 6, 3])
     if pretrained:
-        load_weights_sequential(model, model_zoo.load_url(model_urls['resnet50']))
+#        load_weights_sequential(model, model_zoo.load_url(model_urls['resnet50']))
+        if model_urls['resnet50'][:4] == 'http':
+            load_weights_sequential(model, model_zoo.load_url(model_urls['resnet50']))
+        else:
+            load_weights_sequential(model, torch.load(model_urls['resnet50']))
     return model
 
 # --------------------------------------------------------------------------

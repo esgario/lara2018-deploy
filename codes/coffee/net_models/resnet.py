@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
 
@@ -7,13 +8,14 @@ __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
 
 
 model_urls = {
-    'resnet18': 'http://download.pytorch.org/models/resnet18-5c106cde.pth',
-    'resnet34': 'http://download.pytorch.org/models/resnet34-333f7ec4.pth',
-    'resnet50': 'http://download.pytorch.org/models/resnet50-19c8e357.pth',
-    'resnet101': 'http://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
-    'resnet152': 'http://download.pytorch.org/models/resnet152-b121ed2d.pth',
-    'resnext50_32x4d': 'http://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth',
-    'resnext101_32x8d': 'http://download.pytorch.org/models/resnext101_32x8d-8ba56ff5.pth',
+    'resnet18': 'https://download.pytorch.org/models/resnet18-5c106cde.pth',
+    'resnet34': 'https://download.pytorch.org/models/resnet34-333f7ec4.pth',
+    #'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet50': '/code/models/resnet50-19c8e357.pth',
+    'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
+    'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
+    'resnext50_32x4d': 'https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth',
+    'resnext101_32x8d': 'https://download.pytorch.org/models/resnext101_32x8d-8ba56ff5.pth',
 }
 
 
@@ -208,7 +210,11 @@ class ResNet(nn.Module):
             return x1, x2
         
 def load_pretrained_model(model, url):
-    pretrained_state = model_zoo.load_url(model_urls[url])
+    if model_urls[url][:4] == 'http':
+        pretrained_state = model_zoo.load_url(model_urls[url])
+    else:
+        pretrained_state = torch.load(model_urls[url])
+        
     model_state = model.state_dict()
     pretrained_state = { k:v for k,v in pretrained_state.items() if k in model_state and v.size() == model_state[k].size() }
     model_state.update(pretrained_state)
