@@ -22,7 +22,7 @@ def load_weights_sequential(target, source_state):
     Implementation of dilated ResNet-101 with deep supervision. Downsampling is changed to 8x
 '''
 model_urls = {
-    'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet50': 'http://download.pytorch.org/models/resnet50-19c8e357.pth',
 }
 
 
