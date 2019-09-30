@@ -228,10 +228,10 @@ class Classifier():
     
     def run(self):
         # Cuda
-        if torch.cuda.is_available():
-            self.device = torch.device("cuda:" + str(torch.cuda.current_device()))
-        else:
-            self.device = torch.device("cpu")
+#        if torch.cuda.is_available():
+#            self.device = torch.device("cuda:" + str(torch.cuda.current_device()))
+#        else:
+        self.device = torch.device("cpu")
         
         # Reading image
         self.img, self.orig_img = self.readImage()

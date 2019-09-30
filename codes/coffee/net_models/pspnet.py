@@ -162,7 +162,7 @@ def resnet50(pretrained=True):
         if model_urls['resnet50'][:4] == 'http':
             load_weights_sequential(model, model_zoo.load_url(model_urls['resnet50']))
         else:
-            load_weights_sequential(model, torch.load(model_urls['resnet50']))
+            load_weights_sequential(model, torch.load(model_urls['resnet50'], map_location=torch.device("cpu")))
     return model
 
 # --------------------------------------------------------------------------

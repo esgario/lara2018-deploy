@@ -213,7 +213,7 @@ def load_pretrained_model(model, url):
     if model_urls[url][:4] == 'http':
         pretrained_state = model_zoo.load_url(model_urls[url])
     else:
-        pretrained_state = torch.load(model_urls[url])
+        pretrained_state = torch.load(model_urls[url], map_location=torch.device("cpu"))
         
     model_state = model.state_dict()
     pretrained_state = { k:v for k,v in pretrained_state.items() if k in model_state and v.size() == model_state[k].size() }
