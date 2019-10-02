@@ -14,7 +14,7 @@ import torch
 import torchvision.transforms as transforms
 from .net_models import PSPNet, resnet50
 
-BIOTIC_STRESS_LABEL = ('Outros', 'Bicho mineiro', 'Ferrugem', 'Phoma', 'Cercosporiose')
+BIOTIC_STRESS_LABEL = ('Outros', 'Bicho mineiro', 'Ferrugem', 'Mancha-de-phoma', 'Cercosporiose')
 
 def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
     dim = None
@@ -279,7 +279,7 @@ class Classifier():
             result += '%d,%s,%d\n' % (i, BIOTIC_STRESS_LABEL[out], confidence_level[0])
         
         if result == '':
-            result = '---, saudável, ---'
+            result = '---,Sadia,---'
             
         outputImage = self.createOutputImage(new_labels)
         self.save(outputImage, severity, bbox)
