@@ -3,6 +3,6 @@ gunicorn
 redis==2.10.6
 mlq
 imageio
-pillow==4.3.0
+pillow==8.1.1
 scikit-image==0.15.0
 requests_toolbelt
